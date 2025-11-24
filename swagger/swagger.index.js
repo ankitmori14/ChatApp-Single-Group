@@ -14,8 +14,8 @@ const swaggerDoc = {
       description: "Local Server",
     },
     {
-      url: "https://call-app-backend.vercel.app/",
-      description: "Vercel server",
+      url: "https://chatapp-single-group.onrender.com/",
+      description: "Render server",
     },
   ],
   tags: [

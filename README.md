@@ -567,7 +567,7 @@ After successful setup:
    - Configure rate limiting
 
 4. **Deploy:**
-   - Choose a hosting platform (Vercel, Heroku, AWS, etc.)
+   - Choose a hosting platform (Render, Heroku, AWS, etc.)
    - Set environment variables on the platform
    - Deploy and test
 
