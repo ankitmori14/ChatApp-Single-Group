@@ -1,0 +1,29 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches: [main]  # Trigger on push to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}  # Securely stored .pem file
+          HOSTNAME: ${{ secrets.HOSTNAME }}
+          USER_NAME: ${{ secrets.USER_NAME }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh-keyscan -H $HOSTNAME >> ~/.ssh/known_hosts
+      - name: Deploy to EC2
+        run: |
+          ssh -i private_key $USER_NAME@$HOSTNAME '
+            cd /var/www/html/call-app-backend
+            git checkout main
+            git pull origin main
+            npm install
+            pm2 restart app.js  # Replace with your PM2 command
+          '
